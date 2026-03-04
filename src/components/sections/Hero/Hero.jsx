@@ -4,11 +4,33 @@ import Typer from './Typer';
 import HeroVis from './HeroVis';
 import Tag from '../../ui/Tag';
 import Button from '../../ui/Button';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
- * Hero section — DLC Software intro with typing effect and orbital viz.
+ * Hero section — Refined editorial layout with orbital viz and fluid motion.
  */
 export default function Hero() {
+    const { scrollY } = useScroll();
+    const yParallax = useTransform(scrollY, [0, 500], [0, 150]);
+    const opacityParallax = useTransform(scrollY, [0, 300], [1, 0]);
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { type: 'spring', stiffness: 100, damping: 20 }
+        }
+    };
+
     return (
         <section
             style={{
@@ -18,152 +40,163 @@ export default function Hero() {
                 paddingTop: 68,
                 position: 'relative',
                 overflow: 'hidden',
+                backgroundColor: 'transparent' // var(--bg) fallback
             }}
         >
-            <div className="grid-bg" style={{ position: 'absolute', inset: 0, zIndex: 0 }} />
+            <div className="grid-bg" style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 0.6 }} />
             <Particles />
 
-            {/* Background radials */}
+            {/* Background radials - softened and expanded for depth */}
             <div
                 style={{
                     position: 'absolute',
-                    top: '25%',
-                    right: '-10%',
+                    top: '15%',
+                    right: '-15%',
+                    width: 900,
+                    height: 900,
+                    borderRadius: '50%',
+                    background: 'radial-gradient(circle,rgba(63,169,245,.08) 0%,transparent 65%)',
+                    pointerEvents: 'none',
+                    zIndex: 0
+                }}
+            />
+            <div
+                style={{
+                    position: 'absolute',
+                    bottom: '-10%',
+                    left: '-10%',
                     width: 700,
                     height: 700,
                     borderRadius: '50%',
-                    background: 'radial-gradient(circle,rgba(63,169,245,.12) 0%,transparent 65%)',
+                    background: 'radial-gradient(circle,rgba(11,43,106,.05) 0%,transparent 70%)',
                     pointerEvents: 'none',
-                }}
-            />
-            <div
-                style={{
-                    position: 'absolute',
-                    bottom: '5%',
-                    left: '-5%',
-                    width: 500,
-                    height: 500,
-                    borderRadius: '50%',
-                    background: 'radial-gradient(circle,rgba(11,43,106,.07) 0%,transparent 70%)',
-                    pointerEvents: 'none',
+                    zIndex: 0
                 }}
             />
 
-            <div
+            <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={containerVariants}
                 style={{
-                    maxWidth: 1200,
+                    maxWidth: 1300,
                     margin: '0 auto',
-                    padding: '60px 24px',
+                    padding: '80px 24px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    gap: 40,
+                    gap: 60,
                     width: '100%',
                     position: 'relative',
                     zIndex: 2,
                     flexWrap: 'wrap',
                 }}
             >
-                <div style={{ flex: '1 1 480px', maxWidth: 600 }}>
-                    <Tag
-                        icon={<Activity size={12} />}
-                        bg="rgba(63,169,245,.12)"
-                        color="#0B2B6A"
-                        border="1px solid rgba(63,169,245,.28)"
-                        className="rv d1"
-                        style={{ marginBottom: 28 }}
-                    >
-                        De La Cruz Software
-                    </Tag>
+                <div style={{ flex: '1 1 500px', maxWidth: 680, zIndex: 10 }}>
+                    <motion.div variants={itemVariants}>
+                        <Tag
+                            icon={<Activity size={12} />}
+                            bg="rgba(63,169,245,.08)"
+                            color="#0B2B6A"
+                            border="1px solid rgba(63,169,245,.2)"
+                            style={{ marginBottom: 32, backdropFilter: 'blur(10px)' }}
+                        >
+                            De La Cruz Software
+                        </Tag>
+                    </motion.div>
 
-                    <h1
-                        className="rv d2"
+                    <motion.h1
+                        variants={itemVariants}
                         style={{
-                            fontFamily: 'Poppins,sans-serif',
-                            fontWeight: 900,
-                            fontSize: 'clamp(2.75rem,5.5vw,4.5rem)',
-                            lineHeight: 1.02,
-                            letterSpacing: '-.05em',
-                            marginBottom: 24,
-                            color: '#0D1B2A',
+                            fontWeight: 600,
+                            fontSize: 'clamp(3rem, 6.5vw, 5.5rem)',
+                            lineHeight: 1.05,
+                            letterSpacing: '-.03em',
+                            marginBottom: 28,
+                            color: '#050F24',
                         }}
                     >
-                        Software a medida,
-                        <br />
-                        <Typer />
-                    </h1>
+                        Software a medida,<br />
+                        <span style={{ color: '#0B2B6A' }}><Typer /></span>
+                    </motion.h1>
 
-                    <p
-                        className="rv d3"
+                    <motion.p
+                        variants={itemVariants}
                         style={{
-                            fontSize: '1.125rem',
+                            fontSize: '1.25rem',
                             color: '#566880',
-                            lineHeight: 1.8,
-                            marginBottom: 40,
-                            maxWidth: 500,
+                            lineHeight: 1.7,
+                            marginBottom: 48,
+                            maxWidth: 540,
                             fontWeight: 400,
                         }}
                     >
-                        Creamos{' '}
-                        <strong style={{ color: '#0B2B6A', fontWeight: 700 }}>
-                            soluciones digitales
-                        </strong>{' '}
-                        que automatizan y potencian tu negocio. Desde bots de WhatsApp hasta
-                        aplicaciones web y móviles.
-                    </p>
+                        Creamos <strong style={{ color: '#0B2B6A', fontWeight: 600 }}>soluciones digitales</strong> que automatizan y potencian tu negocio. Desde bots inteligentes hasta plataformas corporativas.
+                    </motion.p>
 
-                    <div className="rv d4" style={{ display: 'flex', gap: 13, flexWrap: 'wrap' }}>
+                    <motion.div variants={itemVariants} style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
                         <Button
                             variant="p"
-                            style={{ fontSize: '1rem', padding: '14px 28px' }}
-                            onClick={() =>
-                                document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })
-                            }
+                            style={{
+                                fontSize: '1.05rem',
+                                padding: '16px 32px',
+                                borderRadius: '16px'
+                            }}
+                            onClick={() => document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth' })}
                         >
-                            Nuestros Servicios <ArrowRight size={17} />
+                            Explorar Servicios <ArrowRight size={18} />
                         </Button>
                         <Button
                             variant="g"
-                            style={{ fontSize: '1rem', padding: '14px 28px' }}
-                            onClick={() =>
-                                document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })
-                            }
+                            style={{
+                                fontSize: '1.05rem',
+                                padding: '16px 32px',
+                                borderRadius: '16px',
+                                background: 'rgba(255,255,255,0.5)',
+                                backdropFilter: 'blur(5px)'
+                            }}
+                            onClick={() => document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })}
                         >
                             Contactar
                         </Button>
-                    </div>
+                    </motion.div>
                 </div>
 
-                <div
-                    className="rvr d3 hm"
-                    style={{ flex: '1 1 460px', display: 'flex', justifyContent: 'center' }}
+                <motion.div
+                    className="hm"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ flex: '1 1 440px', display: 'flex', justifyContent: 'center', position: 'relative' }}
                 >
                     <HeroVis />
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
 
-            {/* Scroll indicator */}
-            <div
+            {/* Scroll indicator with Parallax */}
+            <motion.div
                 style={{
+                    y: yParallax,
+                    opacity: opacityParallax,
                     position: 'absolute',
-                    bottom: 28,
+                    bottom: 40,
                     left: '50%',
                     transform: 'translateX(-50%)',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    gap: 6,
+                    gap: 8,
                     color: '#566880',
-                    fontSize: '.7rem',
+                    fontSize: '.75rem',
                     fontWeight: 600,
-                    letterSpacing: '.12em',
+                    letterSpacing: '.15em',
                     textTransform: 'uppercase',
-                    zIndex: 2,
+                    zIndex: 10,
                 }}
             >
-                <span>Scroll</span>
-                <ChevronDown size={14} style={{ animation: 'fl 1.6s ease-in-out infinite' }} />
-            </div>
+                <span style={{ opacity: 0.7 }}>Scroll</span>
+                <ChevronDown size={16} style={{ animation: 'fl 2s ease-in-out infinite' }} />
+            </motion.div>
         </section>
     );
 }

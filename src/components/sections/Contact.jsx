@@ -1,38 +1,57 @@
 import { useState } from 'react';
-import { Mail, MessageCircle, Phone, Send, CheckCircle2, MapPin } from 'lucide-react';
+import { Mail, MessageCircle, Phone, Send, CheckCircle2 } from 'lucide-react';
 import Tag from '../ui/Tag';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import { motion } from 'framer-motion';
 
 const CONTACT_CHANNELS = [
-    { label: 'WhatsApp', value: '(829) 630-0007', c: '#25D366', icon: <MessageCircle size={18} />, link: 'https://wa.me/18296300007' },
-    { label: 'Email', value: 'dlcdev@vielku.resend.app', c: '#3FA9F5', icon: <Mail size={18} />, link: 'mailto:dlcdev@vielku.resend.app' },
-    { label: 'Teléfono', value: '(829) 630-0007', c: '#a855f7', icon: <Phone size={18} />, link: 'tel:+18296300007' },
+    { label: 'WhatsApp', value: '(829) 630-0007', c: '#25D366', icon: <MessageCircle size={20} />, link: 'https://wa.me/18296300007' },
+    { label: 'Email', value: 'dlcdev@vielku.resend.app', c: '#3FA9F5', icon: <Mail size={20} />, link: 'mailto:dlcdev@vielku.resend.app' },
+    { label: 'Teléfono', value: '(829) 630-0007', c: '#a855f7', icon: <Phone size={20} />, link: 'tel:+18296300007' },
 ];
 
 /**
- * Contact section — prominent contact cards + form.
+ * Contact section — premium contact cards + form with glassmorphism interactions.
  */
 export default function Contact() {
     const [form, setForm] = useState({ name: '', email: '', msg: '' });
     const [sent, setSent] = useState(false);
     const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { type: 'spring', stiffness: 80, damping: 20 }
+        }
+    };
+
     return (
         <section
             id="contacto"
-            style={{ padding: '120px 0', background: '#fff', position: 'relative', overflow: 'hidden' }}
+            style={{ padding: '140px 0', background: '#FAFAFC', position: 'relative', overflow: 'hidden' }}
         >
             <div
                 style={{
                     position: 'absolute',
-                    bottom: 0,
-                    right: 0,
-                    width: 600,
-                    height: 600,
+                    bottom: -200,
+                    right: -200,
+                    width: 800,
+                    height: 800,
                     borderRadius: '50%',
-                    background: 'radial-gradient(circle,rgba(63,169,245,.07) 0%,transparent 65%)',
+                    background: 'radial-gradient(circle,rgba(63,169,245,.05) 0%,transparent 60%)',
                     pointerEvents: 'none',
+                    zIndex: 0
                 }}
             />
 
@@ -46,182 +65,206 @@ export default function Contact() {
                 }}
             >
                 {/* Header */}
-                <div style={{ textAlign: 'center', marginBottom: 56 }}>
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ duration: 0.6 }}
+                    style={{ textAlign: 'center', marginBottom: 64 }}
+                >
                     <Tag
                         icon={<Mail size={12} />}
-                        bg="rgba(63,169,245,.1)"
+                        bg="rgba(63,169,245,.08)"
                         color="#0B2B6A"
                         border="1px solid rgba(63,169,245,.2)"
-                        className="rv"
-                        style={{ marginBottom: 20 }}
+                        style={{ marginBottom: 24 }}
                     >
                         Contáctanos
                     </Tag>
                     <h2
-                        className="rv d1"
                         style={{
-                            fontFamily: 'Poppins,sans-serif',
-                            fontWeight: 900,
-                            fontSize: 'clamp(2rem,3.5vw,3rem)',
-                            letterSpacing: '-.05em',
-                            marginBottom: 14,
+                            fontFamily: 'Clash Display, sans-serif',
+                            fontWeight: 600,
+                            fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
+                            letterSpacing: '-.02em',
+                            marginBottom: 16,
+                            color: '#050F24'
                         }}
                     >
                         ¿Listo para empezar? <span className="gt">Escríbenos</span>
                     </h2>
-                    <p className="rv d2" style={{ color: '#566880', fontSize: '1.0625rem', maxWidth: 460, margin: '0 auto', lineHeight: 1.7 }}>
-                        Escoge el canal que prefieras. Respuesta garantizada.
+                    <p style={{ color: '#566880', fontSize: '1.15rem', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>
+                        Escoge el canal que prefieras. Desarrollamos soluciones a la medida de los desafíos de tu empresa.
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Quick contact cards */}
-                <div
-                    className="rv d2"
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-50px' }}
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-                        gap: 16,
-                        marginBottom: 56,
-                        maxWidth: 800,
-                        margin: '0 auto 56px',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                        gap: 20,
+                        marginBottom: 72,
+                        maxWidth: 900,
+                        margin: '0 auto 72px',
                     }}
                 >
                     {CONTACT_CHANNELS.map(({ label, value, c, icon, link }) => (
-                        <a
+                        <motion.a
+                            variants={itemVariants}
                             key={label}
                             href={link}
                             target="_blank"
                             rel="noopener noreferrer"
+                            whileHover={{
+                                y: -6,
+                                boxShadow: '0 25px 50px -12px rgba(11,43,106,.15)',
+                                scale: 1.02
+                            }}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: 14,
-                                padding: '20px 24px',
-                                borderRadius: 18,
-                                background: '#EEF2FF',
-                                border: '1px solid rgba(11,43,106,.06)',
+                                gap: 18,
+                                padding: '24px 28px',
+                                borderRadius: 24,
+                                background: '#ffffff',
+                                border: '1px solid rgba(11,43,106,.05)',
                                 textDecoration: 'none',
-                                transition: 'all .3s',
                                 cursor: 'pointer',
-                            }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'translateY(-4px)';
-                                e.currentTarget.style.boxShadow = '0 16px 40px -12px rgba(11,43,106,.15)';
-                                e.currentTarget.style.background = '#fff';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = '';
-                                e.currentTarget.style.boxShadow = '';
-                                e.currentTarget.style.background = '#EEF2FF';
+                                position: 'relative',
+                                overflow: 'hidden'
                             }}
                         >
                             <div
                                 style={{
-                                    width: 48,
-                                    height: 48,
-                                    borderRadius: 14,
+                                    width: 54,
+                                    height: 54,
+                                    borderRadius: 16,
                                     background: `${c}15`,
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     color: c,
                                     flexShrink: 0,
+                                    boxShadow: `0 8px 20px -8px ${c}50`
                                 }}
                             >
                                 {icon}
                             </div>
-                            <div style={{ minWidth: 0, flex: 1 }}>
+                            <div style={{ minWidth: 0, flex: 1, zIndex: 1 }}>
                                 <div
                                     style={{
-                                        fontSize: '.72rem',
+                                        fontSize: '.75rem',
                                         fontWeight: 700,
                                         color: '#566880',
                                         textTransform: 'uppercase',
-                                        letterSpacing: '.07em',
-                                        marginBottom: 2,
+                                        letterSpacing: '.1em',
+                                        marginBottom: 4,
                                     }}
                                 >
                                     {label}
                                 </div>
-                                <div style={{ fontWeight: 700, color: '#0D1B2A', fontSize: 'clamp(.75rem, 2.5vw, .9375rem)', wordBreak: 'break-all', overflowWrap: 'break-word' }}>{value}</div>
+                                <div style={{ fontWeight: 600, color: '#0D1B2A', fontSize: '1.05rem', wordBreak: 'break-all', fontFamily: 'Clash Display, sans-serif' }}>{value}</div>
                             </div>
-                        </a>
+                            {/* Accent glow on hover/subtle bg */}
+                            <div style={{ position: 'absolute', top: -20, right: -20, width: 80, height: 80, background: c, opacity: 0.1, filter: 'blur(20px)', borderRadius: '50%' }} />
+                        </motion.a>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Form */}
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <div
-                        className="rv d3"
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: '-50px' }}
+                        transition={{ type: 'spring', stiffness: 60, damping: 20, delay: 0.3 }}
                         style={{
-                            flex: '0 1 600px',
-                            background: '#EEF2FF',
-                            borderRadius: 28,
-                            padding: 44,
-                            border: '1px solid rgba(11,43,106,.07)',
+                            flex: '0 1 680px',
+                            background: '#ffffff',
+                            borderRadius: 32,
+                            padding: '48px 56px',
+                            border: '1px solid rgba(11,43,106,.05)',
+                            boxShadow: '0 40px 80px -20px rgba(11,43,106,.08)',
+                            position: 'relative',
+                            overflow: 'hidden'
                         }}
                     >
+                        {/* decorative corner blur for the form */}
+                        <div style={{ position: 'absolute', top: -100, left: -100, width: 300, height: 300, background: 'radial-gradient(circle, rgba(63,169,245,0.06) 0%, transparent 70%)', borderRadius: '50%', pointerEvents: 'none' }} />
+
                         {sent ? (
-                            <div style={{ textAlign: 'center', padding: '40px 0' }}>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                style={{ textAlign: 'center', padding: '40px 0' }}
+                            >
                                 <div
                                     style={{
-                                        width: 72,
-                                        height: 72,
+                                        width: 80,
+                                        height: 80,
                                         borderRadius: '50%',
                                         background: '#e8fdf0',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        margin: '0 auto 20px',
+                                        margin: '0 auto 24px',
+                                        boxShadow: '0 12px 30px -10px rgba(16,185,129,.3)'
                                     }}
                                 >
-                                    <CheckCircle2 size={36} color="#10B981" />
+                                    <CheckCircle2 size={40} color="#10B981" />
                                 </div>
                                 <h3
                                     style={{
-                                        fontFamily: 'Poppins,sans-serif',
-                                        fontWeight: 900,
-                                        fontSize: '1.5rem',
+                                        fontFamily: 'Clash Display, sans-serif',
+                                        fontWeight: 600,
+                                        fontSize: '1.75rem',
                                         color: '#0D1B2A',
-                                        marginBottom: 10,
+                                        marginBottom: 12,
                                     }}
                                 >
                                     ¡Mensaje enviado!
                                 </h3>
-                                <p style={{ color: '#566880' }}>Te contactaremos lo antes posible.</p>
-                                <Button variant="p" style={{ marginTop: 28 }} onClick={() => setSent(false)}>
+                                <p style={{ color: '#566880', fontSize: '1.05rem' }}>Procesaremos tu solicitud y te contactaremos a la brevedad.</p>
+                                <Button variant="p" style={{ marginTop: 32, padding: '14px 32px', borderRadius: '16px' }} onClick={() => setSent(false)}>
                                     Enviar otro mensaje
                                 </Button>
-                            </div>
+                            </motion.div>
                         ) : (
                             <>
                                 <h3
                                     style={{
-                                        fontFamily: 'Poppins,sans-serif',
-                                        fontWeight: 900,
-                                        fontSize: '1.375rem',
-                                        marginBottom: 24,
+                                        fontFamily: 'Clash Display, sans-serif',
+                                        fontWeight: 600,
+                                        fontSize: '1.65rem',
+                                        marginBottom: 32,
                                         color: '#0D1B2A',
                                         textAlign: 'center',
+                                        position: 'relative',
+                                        zIndex: 1
                                     }}
                                 >
-                                    O déjanos un mensaje
+                                    O déjanos un mensaje directo
                                 </h3>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 20, position: 'relative', zIndex: 1 }}>
+                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
                                         <Input label="Nombre" placeholder="Tu nombre" value={form.name} onChange={set('name')} />
                                         <Input label="Email" type="email" placeholder="tu@email.com" value={form.email} onChange={set('email')} />
                                     </div>
                                     <Input
                                         label="¿En qué podemos ayudarte?"
                                         type="textarea"
-                                        placeholder="Cuéntanos brevemente..."
+                                        placeholder="Cuéntanos sobre tu proyecto o necesidad..."
                                         value={form.msg}
                                         onChange={set('msg')}
                                     />
                                     <Button
                                         variant="p"
-                                        style={{ width: '100%', justifyContent: 'center', fontSize: '1rem', padding: '15px' }}
+                                        style={{ width: '100%', justifyContent: 'center', fontSize: '1.05rem', padding: '18px', borderRadius: '16px', marginTop: 12 }}
                                         onClick={() => {
                                             if (form.name && form.email) {
                                                 const text = `Hola, mi nombre es ${form.name}. Mi correo es ${form.email}. %0A%0A${form.msg}`;
@@ -243,12 +286,12 @@ export default function Contact() {
                                             }
                                         }}
                                     >
-                                        <Send size={16} /> Enviar mensaje
+                                        <Send size={18} /> Enviar mensaje
                                     </Button>
                                 </div>
                             </>
                         )}
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

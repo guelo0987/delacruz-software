@@ -2,7 +2,7 @@
    GLOBAL STYLES — De La Cruz Software
    ══════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&f[]=satoshi@300,400,500,700,900&display=swap');
 
 /* ── Design Tokens ── */
 :root {
@@ -36,7 +36,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   background: var(--bg);
   color: var(--tx);
   overflow-x: hidden;
@@ -47,7 +47,7 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Clash Display', sans-serif;
 }
 
 /* ── Scrollbar ── */
@@ -391,7 +391,7 @@ h5 {
 }
 
 .stat-n {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Clash Display', sans-serif;
   font-weight: 900;
   font-size: clamp(2.25rem, 4.5vw, 3.75rem);
   line-height: 1;
@@ -422,7 +422,7 @@ h5 {
   border-radius: 14px;
   border: none;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-weight: 800;
   font-size: .9375rem;
   position: relative;
@@ -527,7 +527,7 @@ h5 {
   padding: 13px 18px;
   border: 1.5px solid rgba(11, 43, 106, .12);
   border-radius: 12px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-size: .9375rem;
   color: var(--tx);
   background: #fff;
@@ -559,7 +559,7 @@ h5 {
   align-items: center;
   padding: 22px 0;
   text-align: left;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-weight: 800;
   font-size: 1.0625rem;
   color: var(--tx);
@@ -600,7 +600,7 @@ h5 {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Satoshi', sans-serif;
   font-weight: 800;
   font-size: .9375rem;
   cursor: pointer;
