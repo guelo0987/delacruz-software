@@ -36,11 +36,11 @@ export const SERVICES = [
 
 /* ── Projects (types of work, not fake names) ── */
 export const PROJECTS = [
-    { t: 'E-commerce', cat: 'Tiendas Online', d: 'Tiendas virtuales con catálogo, carrito de compras y pasarelas de pago.', icon: 'Wrench', c: '#f97316', bg: '#fff7ed', tags: ['React', 'Stripe', 'PostgreSQL'] },
-    { t: 'Apps Empresariales', cat: 'SaaS', d: 'Plataformas web con paneles de administración, reportes y gestión de usuarios.', icon: 'MonitorSmartphone', c: '#10B981', bg: '#f0fdf4', tags: ['FastAPI', 'React', 'Redis'] },
-    { t: 'Sistemas de Gestión', cat: 'CRM / ERP', d: 'Control de clientes, inventario, facturación y operaciones del negocio.', icon: 'Globe', c: '#a855f7', bg: '#faf5ff', tags: ['Python', 'PostgreSQL', 'Docker'] },
-    { t: 'Bots Inteligentes', cat: 'WhatsApp IA', d: 'Asistentes por WhatsApp con IA que automatizan la atención al cliente.', icon: 'Bot', c: '#0B2B6A', bg: '#eff6ff', tags: ['IA', 'FastAPI', 'WhatsApp API'] },
-    { t: 'Landing Pages', cat: 'Marketing', d: 'Páginas de alto impacto para captar clientes y posicionar tu marca.', icon: 'Palette', c: '#ec4899', bg: '#fdf2f8', tags: ['React', 'SEO', 'Performance'] },
+    { t: 'E-commerce', cat: 'Tiendas Online', d: 'Tiendas virtuales con catálogo, carrito de compras y pasarelas de pago.', icon: 'Wrench', c: '#f97316', bg: '#fff7ed' },
+    { t: 'Apps Empresariales', cat: 'SaaS', d: 'Plataformas web con paneles de administración, reportes y gestión de usuarios.', icon: 'MonitorSmartphone', c: '#10B981', bg: '#f0fdf4' },
+    { t: 'Sistemas de Gestión', cat: 'CRM / ERP', d: 'Control de clientes, inventario, facturación y operaciones del negocio.', icon: 'Globe', c: '#a855f7', bg: '#faf5ff' },
+    { t: 'Bots Inteligentes', cat: 'WhatsApp IA', d: 'Asistentes por WhatsApp con IA que automatizan la atención al cliente.', icon: 'Bot', c: '#0B2B6A', bg: '#eff6ff' },
+    { t: 'Landing Pages', cat: 'Marketing', d: 'Páginas de alto impacto para captar clientes y posicionar tu marca.', icon: 'Palette', c: '#ec4899', bg: '#fdf2f8' },
 ];
 
 /* ── WhatsApp Demo Chat ── */

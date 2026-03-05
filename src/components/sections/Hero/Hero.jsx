@@ -116,6 +116,7 @@ export default function Hero() {
                             color: '#050F24',
                         }}
                     >
+                        <span className="sr-only">Agencia de Desarrollo Web en República Dominicana. </span>
                         Software a medida,<br />
                         <span style={{ color: '#0B2B6A' }}><Typer /></span>
                     </motion.h1>

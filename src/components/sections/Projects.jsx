@@ -1,12 +1,12 @@
 import { useRef } from 'react';
-import { ChevronLeft, ChevronRight, Globe, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Globe, ArrowRight, ExternalLink } from 'lucide-react';
 import Tag from '../ui/Tag';
 import Button from '../ui/Button';
 import { PROJECTS, ICON_MAP } from '../../data/constants';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 /**
- * Projects section — dynamic horizontal carousel using Framer Motion
+ * Projects section — Featuring 'Gigante' prominently, then dynamic horizontal carousel using Framer Motion
  */
 export default function Projects() {
     const ref = useRef(null);
@@ -30,7 +30,7 @@ export default function Projects() {
     };
 
     return (
-        <section id="proyectos" style={{ padding: '120px 0', background: '#fff', position: 'relative', overflow: 'hidden' }}>
+        <section id="proyectos" style={{ padding: '120px 0', background: '#FAFAFC', position: 'relative', overflow: 'hidden' }}>
             <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
                 {/* Header */}
                 <motion.div
@@ -55,7 +55,7 @@ export default function Projects() {
                             border="1px solid rgba(11,43,106,.1)"
                             style={{ marginBottom: 20 }}
                         >
-                            Proyectos
+                            Casos de Éxito
                         </Tag>
                         <h2
                             style={{
@@ -70,7 +70,7 @@ export default function Projects() {
                             Lo que construimos
                         </h2>
                         <p style={{ color: '#566880', fontSize: '1.15rem', lineHeight: 1.7 }}>
-                            Soluciones reales para problemas reales. Cada proyecto está diseñado y desarrollado a medida para un alto rendimiento.
+                            Soluciones reales para problemas reales. Diseñamos y desarrollamos productos a medida que impulsan resultados.
                         </p>
                     </div>
                     <div style={{ display: 'flex', gap: 12 }}>
@@ -110,6 +110,122 @@ export default function Projects() {
                         ))}
                     </div>
                 </motion.div>
+
+                {/* Featured Project: Gigante */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-50px' }}
+                    transition={{ type: 'spring', stiffness: 50, damping: 20 }}
+                    style={{
+                        background: '#ffffff',
+                        borderRadius: 32,
+                        padding: '12px',
+                        border: '1px solid rgba(11,43,106,.05)',
+                        marginBottom: 64,
+                        display: 'grid',
+                        gridTemplateColumns: '1fr 1fr',
+                        gap: 24,
+                        alignItems: 'center',
+                        boxShadow: '0 40px 80px -20px rgba(11,43,106,.08)',
+                        overflow: 'hidden',
+                        position: 'relative'
+                    }}
+                    className="featured-project-grid"
+                >
+                    {/* Media container */}
+                    <div
+                        style={{
+                            background: '#F8FAFC',
+                            borderRadius: 24,
+                            height: '100%',
+                            minHeight: 400,
+                            position: 'relative',
+                            overflow: 'hidden',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        {/* Decorative glow */}
+                        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%', height: '80%', background: 'radial-gradient(circle, rgba(63,169,245,0.1) 0%, transparent 70%)', filter: 'blur(30px)' }} />
+
+                        <motion.img
+                            whileHover={{ scale: 1.05 }}
+                            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                            src="/gigante_landing.png"
+                            alt="Gigante Landing Page"
+                            style={{
+                                width: '90%',
+                                height: 'auto',
+                                borderRadius: 16,
+                                boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)',
+                                position: 'relative',
+                                zIndex: 1,
+                                objectFit: 'cover'
+                            }}
+                        />
+                    </div>
+
+                    {/* Content container */}
+                    <div style={{ padding: '40px 48px 40px 24px' }}>
+                        <div style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 8,
+                            padding: '6px 14px',
+                            background: '#FFF1F2',
+                            color: '#E11D48',
+                            borderRadius: 100,
+                            fontSize: '.75rem',
+                            fontWeight: 700,
+                            letterSpacing: '.1em',
+                            textTransform: 'uppercase',
+                            marginBottom: 20
+                        }}>
+                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#E11D48' }} />
+                            Proyecto Destacado
+                        </div>
+
+                        <h3 style={{
+                            fontFamily: 'Clash Display, sans-serif',
+                            fontWeight: 600,
+                            fontSize: 'clamp(2rem, 3vw, 2.75rem)',
+                            lineHeight: 1.1,
+                            letterSpacing: '-.02em',
+                            color: '#050F24',
+                            marginBottom: 24
+                        }}>
+                            Gigante
+                        </h3>
+                        <p style={{
+                            color: '#566880',
+                            fontSize: '1.15rem',
+                            lineHeight: 1.6,
+                            marginBottom: 32
+                        }}>
+                            Desarrollo de una plataforma web de alto impacto para Gigante, enfocada en maximizar conversiones y ofrecer una experiencia de usuario fluida y moderna. Diseñada para destacarse.
+                        </p>
+
+                        <Button
+                            variant="p"
+                            style={{ padding: '16px 32px', borderRadius: '16px', fontSize: '1rem' }}
+                            onClick={() => window.open('https://www.ferreteriagigante.com/', '_blank')}
+                        >
+                            Ver caso completo <ExternalLink size={18} />
+                        </Button>
+                    </div>
+                </motion.div>
+
+                {/* Additional CSS for responsive grid */}
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    @media (max-width: 900px) {
+                        .featured-project-grid {
+                            grid-template-columns: 1fr !important;
+                        }
+                    }
+                `}} />
 
                 {/* Scrollable row */}
                 <motion.div
@@ -197,23 +313,6 @@ export default function Projects() {
                                 <p style={{ color: '#566880', lineHeight: 1.7, fontSize: '1rem', marginBottom: 24 }}>
                                     {p.d}
                                 </p>
-                                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', position: 'relative', zIndex: 1 }}>
-                                    {p.tags.map((tag) => (
-                                        <span
-                                            key={tag}
-                                            style={{
-                                                background: '#EEF2FF',
-                                                color: '#0B2B6A',
-                                                fontSize: '.75rem',
-                                                fontWeight: 600,
-                                                padding: '6px 14px',
-                                                borderRadius: 100,
-                                            }}
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
 
                                 {/* subtle edge glow matching category color */}
                                 <div style={{ position: 'absolute', top: -30, right: -30, width: 120, height: 120, background: p.bg, opacity: 0.25, filter: 'blur(35px)', borderRadius: '50%', pointerEvents: 'none' }} />
