@@ -212,7 +212,7 @@ export default function Projects() {
                             style={{ padding: '16px 32px', borderRadius: '16px', fontSize: '1rem' }}
                             onClick={() => window.open('https://www.ferreteriagigante.com/', '_blank')}
                         >
-                            Ver caso completo <ExternalLink size={18} />
+                            Visitar <ExternalLink size={18} />
                         </Button>
                     </div>
                 </motion.div>
